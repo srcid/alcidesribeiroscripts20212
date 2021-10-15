@@ -1,4 +1,4 @@
-#/usr/bin/env sh -c
+#!/usr/bin/env bash
 
 mkdir disciplinas historico professores
 
@@ -25,7 +25,7 @@ curl -s https://cc.quixada.ufc.br/estrutura-curricular/estrutura-curricular/ | \
   xargs -I{} -t touch "disciplinas/{}.txt"
 
 # Historico
-class_and_professor=$(pdftotext historico*.pdf - | \
+classes_and_professors=$(pdftotext historico*.pdf - | \
   grep --no-group-separator -B1 'Docente(s): ' | \
   sed 's/Docente(s): // ; s/(.\+) ?// ; s/ \?(.\+) \?//' | \
   iconv -f UTF8 -t ASCII//TRANSLIT | \
@@ -34,23 +34,28 @@ class_and_professor=$(pdftotext historico*.pdf - | \
   tr ' ' '_' | \
   xargs -n2 echo)
 
-while -r read class prof ; do
-  if ! [ -f "disciplinas/$class.txt" ] || ! [ -f "professores/$prof.txt" ]; then
-    echo "$class $prof"
-    continue
-  fi
+cd historico
 
-  wkdir="$PWD/historico/$class"
+while read -r class prof; do
+    if ! [ -f "../disciplinas/$class.txt" ] || ! [ -f "../professores/$prof.txt" ]; then
+        echo "$class $prof"
+        continue
+    fi
 
-  if [ -d $wkdir ] ; then
-    nnew="$(ls $wkdir -w1 | wc -l)"
-    ln -sv "$PWD/professores/$prof.txt" "$wkdir/professor$nnew"
-  else
-    mkdir $wkdir
-    ln -sv "$PWD/professores/$prof.txt" "$wkdir/professor"
-    ln -sv "$PWD/disciplinas/$class.txt" "$wkdir/programa"
-  fi
-done <<< $class_and_professor
+    [ -d $class ] || mkdir $class
+
+    cd $class
+
+    if [ -z $(ls) ]; then
+        ln -sv "../../professores/$prof.txt" "professor"
+        ln -sv "../../disciplinas/$class.txt" "programa"
+    else
+        ln -sv "../../professores/$prof.txt" "professor$(ls -w1 | wc -l)"
+    fi
+
+    cd ..
+
+done <<< $classes_and_professors
 
 # Desaloca as variáveis usadas pelo script
-unset class_and_professor class prof wkdir nnew
+unset classes_and_professors class prof
