@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Correção: 2,0. Tudo OK!!!
 
 # Um comando grep que encontre todoas as linhas com mensagens que não são do sshd
 grep -v 'sshd' auth.log
