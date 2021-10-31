@@ -11,23 +11,18 @@ case $1 in
     ;;
 
   remover|rm)
-    contact=$(egrep -n "^.+:$2$" agenda.db)
+    contact=$(egrep -n "^.+:$2$" agenda.db 2> /dev/null)
     
-    if [ $? == 1 ]; then
+    if [ $? != 0 ]; then
       echo "Nenhun contato com esse email!"
-      exit 1
+    else
+      sed -E -i "${contact%%:*}d" agenda.db
+      echo "Contato removido!"
     fi
-    
-    sed -E -i "${contact%%:*}d" agenda.db
-    echo "Contato removido!"
     ;;
   
   listar|ls)
-    if [ -s agenda.db ]; then
-      cat agenda.db
-    else
-      echo "Agenda vazia!"
-    fi
+    [ -s agenda.db ] && cat agenda.db || echo "Agenda vazia!"
     ;;
 
   *)
@@ -49,7 +44,6 @@ remover
 
   Ex: ./agenda remover 'aluno@server.domain'"
 EOF
-  exit 1
   ;;
 esac
 
