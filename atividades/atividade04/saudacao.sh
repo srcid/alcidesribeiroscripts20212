@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Correção: 1,5
+# Se eu executar o script três vezes, apenas uma mensagem é escrita em saudacao.log. O correto seria anexar ao arquivo.
 
 user=$(whoami)
 
