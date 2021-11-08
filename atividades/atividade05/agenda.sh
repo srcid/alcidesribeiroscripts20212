@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Correção: 1,5
 # Agenda será separada por dois pontos ':' (ou colon, em inglês) 
 # NOME DO CONTATO:EMAIL
 
