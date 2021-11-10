@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ -z "$1" ] && echo "Forneça um arquivo com os endereços de IP." && exit 1
+
 while read -r ipaddr
 do
     timings=$(ping -c 10 $ipaddr | \
@@ -25,7 +27,7 @@ do
     done
 
     echo $ipaddr $(echo "$acc / 10" | bc) ms >> lat.tmp
-done < enderecos_ip
+done < "$1"
 
 echo '"?" significa que não houve resposta'
 
@@ -34,3 +36,4 @@ sort -k 2 lat.tmp
 rm lat.tmp
 
 unset ipaddr timing acc
+
