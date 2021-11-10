@@ -1,4 +1,5 @@
 #!/bin/bash
+# Correção: 0,5
 
 [ $# -lt 3 ] || [ $# -gt 3 ] && echo "Forneça três parametros!" && exit 1
 
