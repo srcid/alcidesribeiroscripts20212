@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Correção: 1,0
 
 [ -z "$1" ] && echo "Forneça um arquivo com os endereços de IP." && exit 1
 
@@ -23,10 +24,10 @@ do
     # muito bem com pontos-flutuantes
     acc=0
     for t in $timings; do
-        acc=$(echo "$acc + $t" | bc) 
+        acc=$(echo "scale=3;$acc + $t;" | bc) 
     done
 
-    echo $ipaddr $(echo "$acc / 10" | bc) ms >> lat.tmp
+    echo $ipaddr $(echo "scale=3;$acc / 10;" | bc) ms >> lat.tmp
 done < "$1"
 
 echo '"?" significa que não houve resposta'

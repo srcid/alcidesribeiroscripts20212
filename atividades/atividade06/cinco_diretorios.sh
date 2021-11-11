@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Correção: 1,0
 
 rept() {
     for i in $(seq 1 $2)
