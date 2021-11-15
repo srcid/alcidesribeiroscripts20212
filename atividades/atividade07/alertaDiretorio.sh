@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-ls -w1 $2 > .tmp_old
+trap 'rm .tmp_old .tmp_new ; unset prev next d alt rem cre res ; exit' 2
+
+ls -w 1 $2 > .tmp_old
 
 while true; do
-    ls -w1 $2 > .tmp_new
+    ls -w 1 $2 > .tmp_new
 
     cur="$(wc -l < .tmp_new)"
     old="$(wc -l < .tmp_old)"
@@ -29,5 +31,5 @@ while true; do
 
 done
 
-rm .tmp*
+rm .tmp_old .tmp_new
 unset prev next d alt rem cre res
