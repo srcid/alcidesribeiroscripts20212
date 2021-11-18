@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Correção: 1,0
 trap 'rm .tmp_old .tmp_new ; unset prev next d alt rem cre res ; exit' 2
 
 ls -w 1 $2 > .tmp_old
