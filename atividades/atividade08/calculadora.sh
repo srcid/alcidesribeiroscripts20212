@@ -41,8 +41,7 @@ do
 	        then
 	        # faça a operação
           expressao="$VISOR $TECLA"
-          echo $expressao
-          resultado=`echo "$expressao" | bc -l | sed -E 's/00+$// ; s/^\./0./ ; s/(.+)\.$/\1/'`
+          resultado=`echo "$expressao" | bc -l | sed -E 's/00+$// ; s/^-./-0./ ; s/^\./0./ ; s/(.+)\.$/\1/'`
 	        VISOR="$VISOR $TECLA = $resultado"
 	        fi
        fi
