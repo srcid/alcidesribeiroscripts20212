@@ -1,0 +1,1 @@
+Faça um script chamado contaPalavras.sh que recupere do usuário o nome de um arquivo de texto e para cada palavra do arquivo diga quantas vezes ela aparece no texto.
