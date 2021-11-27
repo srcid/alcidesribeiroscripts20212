@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 counter() {
-  egrep -o '[[:alpha:]]+' $1 | sort -f | uniq -ic | sort -nr | sed -E 's/ *([[:digit:]]+) (.+)/\2: \1/' | column -t
+  egrep -o '[[:alpha:]]+(-[[:alpha:]]+)+' $1 | awk '{print tolower($0)}' | sort | uniq -c | sort -n -r | sed -E 's/ *([[:digit:]]+) (.+)/\2: \1/' | column -t
 }
 
 if [ -z "$1" ]; then
