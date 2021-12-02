@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-[ -f '.hosts.db' ] || touch .hosts.db
+[ -f '.hosts.db' ] || echo > .hosts.db
 
 add() {
     # $1 hostname
     # $2 IP
-    l="$(grep -n "$1" .hosts.db | cut -d: -f 1)"
+    l=$(grep -n "$1" .hosts.db | cut -d: -f 1)
     if [ -z "$l" ]; then
         sed -i -E "$ a $1,$2" .hosts.db
     else
@@ -32,7 +32,7 @@ list() {
     column -s, -t .hosts.db
 }
 
-selected=
+selected=""
 
 while getopts 'a:i:d:r:l' arg; do
     case $arg in
@@ -41,8 +41,8 @@ while getopts 'a:i:d:r:l' arg; do
     ;;
 
     i)
-    if [ -n"$selected" ]; then
-        add $selected $OPTARG
+    if [ -n "$selected" ]; then
+        add "$selected" "$OPTARG"
     else
         echo "Forneça um hostname com a opção '-a'" 
     fi
