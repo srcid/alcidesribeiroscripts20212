@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Correção: 1,0
 
 [ -f '.hosts.db' ] || echo > .hosts.db
 
