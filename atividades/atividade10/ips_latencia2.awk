@@ -1,4 +1,5 @@
 #!/usr/bin/env -S awk -f
+# Correção: 0,4. Só faltou ordenar. O primeiro script (ips_latencia.awk) não funcionou.
 
 !/^ *$/ {
     ip = $0
