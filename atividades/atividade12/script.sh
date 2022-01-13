@@ -1,4 +1,5 @@
 #!/usr/bin/env -S bash -xv
+# Correção: 4,0. Tudo OK!!!
 
 if [ -z "$1" ]; then
   echo "Foneça uma chave de acesso❗"
