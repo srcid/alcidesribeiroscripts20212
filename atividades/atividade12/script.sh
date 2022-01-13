@@ -11,7 +11,7 @@ KEY_PAIR=$1
 
 VPC_ID="$(aws ec2 describe-vpcs --filters 'Name=is-default,Values=true' --output text --query Vpcs[0].VpcId)"
 
-SUBNET_ID="$(aws ec2 describe-subnets --output text --query Subnets[0].SubnetId)"
+SUBNET_ID="$(aws ec2 describe-subnets --filters "Name=vpc-id,Values=$VPC_ID" --output text --query Subnets[0].SubnetId)"
 
 # Verifica se já existe um grupo de segurança para o NGINX
 SG_ID="$(aws ec2 describe-security-groups --filter 'Name=description,Values=Security group for NGINX' --query SecurityGroups[0].GroupId --output text)"
