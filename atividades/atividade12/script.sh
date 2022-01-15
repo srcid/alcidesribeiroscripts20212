@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Correção: 4,0. Tudo OK!!!
+
 if [[ "$*" =~ .*--debug.* ]]; then
   set -x
   set -v
