@@ -22,7 +22,7 @@ SUBNET_ID="$(aws ec2 describe-subnets --filters "Name=vpc-id,Values=$VPC_ID" --o
 SG_ID="$(aws ec2 describe-security-groups --filter 'Name=description,Values=Security group for NGINX' --query SecurityGroups[0].GroupId --output text)"
 
 # Caso não haja, é criado um
-if [ "$SG_ID" == 'None' ]; then
+if ! [[ "$SG_ID" =~ sg-.+ ]]; then
   SG_ID="$(aws ec2 create-security-group --group-name nginx-sg --description 'Security group for NGINX' --vpc-id "$VPC_ID" --output text --query GroupId)"
   
   # Adicionando regra de acesso ao servidor web
