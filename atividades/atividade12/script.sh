@@ -54,3 +54,14 @@ if [ "$?" != 0 ]; then
 fi
 
 echo "✅ Instancia finalizada."
+
+aws ec2 wait instance-terminated --instance-ids "$INSTANCE_ID"
+
+aws ec2 delete-security-group --group-id "$SG_ID"
+
+if [ "$?" != 0 ]; then
+  echo "⛔ Erro ao deletar o grupo de segurança."
+  exit 3
+fi
+
+echo "✅ Grupo de segurança apagado."
