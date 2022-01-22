@@ -1,0 +1,11 @@
+[Unit]
+Description=Atividade 13 de programação de scripts
+
+[Service]
+Type=simple
+User=ec2-user
+Restart=always
+ExecStart=/home/ec2-user/watcher.sh
+
+[Install]
+WantedBy=default.target
