@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Correção: 4,0. Tudo OK!!!
+# Correção: 2,0. Tudo OK!!!
 
 if [ "$2" == '--debug' ]; then
   set -x
