@@ -21,7 +21,7 @@ if [ -z "$3" ]; then
 fi
 
 echo "⏳ Recuperando ip da dessa máquina..."
-HOST_IP="$(curl -4 -s https://checkip.amazonaws.com)"
+HOST_IP=$(curl -4 -s https://checkip.amazonaws.com)
 
 if [ "$?" != "0" ]; then
   echo "Não foi possível recuperar seu IP público."
@@ -41,7 +41,7 @@ SG_ID="$(aws ec2 create-security-group --group-name atividade15-sg --description
 aws ec2 wait security-group-exists --group-ids "$SG_ID"
 
 aws ec2 authorize-security-group-ingress --group-id "$SG_ID" --protocol tcp --port 80 --cidr "0.0.0.0/0"
-aws ec2 authorize-security-group-ingress --group-id "$SG_ID" --protocol tcp --port 22 --cidr "0.0.0.0/0"
+aws ec2 authorize-security-group-ingress --group-id "$SG_ID" --protocol tcp --port 22 --cidr "$HOST_IP/32"
 aws ec2 authorize-security-group-ingress --group-id "$SG_ID" --protocol tcp --port 3306 --source-group "$SG_ID"
 
 IMAGE_ID="$(aws ec2 describe-images --filters "Name=description,Values=Amazon Linux 2 Kernel 5.10 AMI 2.0.20211223.0 x86_64 HVM gp2" --output text --query Images[0].ImageId)"
