@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Correção: 2,0
 if [ "$4" == '--debug' ]; then
   set -x
   set -v
