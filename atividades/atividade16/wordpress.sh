@@ -1,5 +1,5 @@
 #!/usr/bin/env -S bash -exv
-
+# Correção: 2,0.
 KEY_PAIR="$1"
 DB_USER="$2"
 DB_USER_PASSWD="$3"
